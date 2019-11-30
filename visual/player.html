@@ -1,0 +1,62 @@
+<head>
+    <link href="css/player.css" rel="stylesheet" type="text/css">
+    <link href="DPlayer.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="bar">
+
+    </div>
+    <div id="dplayer">
+
+        <div class="loading-screen">
+            <img src="content/loading.svg">
+            <h1>Handshaking with the torrent...</h1>
+        </div>
+    </div>
+
+    <script>
+        var WebTorrent = require('webtorrent')
+        var DPlayer = require('dplayer')
+
+        var client = new WebTorrent()
+        var magnetURI = 'magnet:?xt=urn:btih:7857CD9BFD755381EA65EBD51B532CA38D13D670&dn=Rambo%3A+Last+Blood+%282019%29+%5B1080p%5D+%5BYTS.LT%5D&tr=udp%3A%2F%2Fglotorrents.pw%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fp4p.arenabg.ch%3A1337&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337'
+
+        let dp;
+        let server;
+
+        client.add(magnetURI, function (torrent) {
+            console.log('Client is downloading:', torrent.infoHash)
+
+            // SERVER SETUP
+            server = torrent.createServer();
+            console.log(server);
+            console.log(torrent);
+            server.listen(6450, () => {
+
+            });
+
+            torrent.files.forEach(function (file) {
+                if (!file.name.endsWith('.mp4')) return;
+
+                dp = new DPlayer({
+                    container: document.getElementById('dplayer'),
+                    screenshot: true,
+                    video: {
+                        pic: 'demo.jpg',
+                        thumbnails: 'thumbnails.jpg',
+                    },
+                });
+
+                setTimeout(() => {
+                    dp.switchVideo({ url: `http://localhost:6450/${0}/${file.name}` });
+
+                    file.renderTo(document.querySelector('video'));
+                    document.querySelector('video').controls = false;
+                    dp.play();
+                }, 2000)
+            })
+        })
+    </script>
+
+</body>

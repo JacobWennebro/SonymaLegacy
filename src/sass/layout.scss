@@ -1,0 +1,99 @@
+.layout {
+    height: 100vh;
+    width: 100vw;
+    .bar {
+        background: #101010;
+        height: 4.5vh;
+        width: 100%;
+        z-index: 10;
+        position: relative;
+        -webkit-app-region: drag;
+    }
+    .ui {
+        width: 100%;
+        height: 95.5vh;
+        background: rgba(0,0,0,0.5);
+        display: grid;
+        grid-template-columns: 15% auto;
+        user-select: none;
+        .left-sidebar {
+            background: #191919;
+            font-family: 'Montserrat';
+            font-weight: bold;
+            font-size: 1.3vw;
+            color: #FFF;
+            text-align: center;
+            z-index: 10;
+            .buttons {
+                a {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    margin: 2rem 0;
+                    img {
+                        width: 25%;
+                        background: #FFF;
+                        padding: 0.5rem;
+                        border-radius: 10rem;
+                    }
+                }
+            }
+        }
+        .page {
+            position: relative;
+            background: #272727;
+            width: 100%;
+            video {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100vh;
+                width: auto;
+                display: block;
+                margin: auto;
+                transform: scale(1.2);
+                z-index: 1;
+            }
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: rgba(0,0,0,0.7);
+                width: 100%;
+                height: 100vw;
+                color: #FFF;
+                z-index: 2;
+                .library {
+                    margin-left: 2rem;
+                    height: 100%;
+                    width: 100%;
+                    p {
+                        font-size: 1.3rem;
+                    }
+                    .library-grid {
+                        display: grid;
+                        grid-gap: 2rem;
+                        grid-template-columns: auto auto auto auto;
+                        width: 80%;
+                        height: 100vh;
+                        overflow-y: scroll;
+                        &::-webkit-scrollbar {
+                            display: none;
+                        }
+                        .card {
+                            img {
+                                width: 100%;
+                                height: auto;
+                                transition: transform 0.5s ease;
+                                &:hover {
+                                    transform: scale(1.05);
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
